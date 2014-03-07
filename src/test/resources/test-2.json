@@ -1,0 +1,71 @@
+{
+    "packageName": "com.ntti3.devopsplus.model",
+    "tablePrefix": "do",
+    "commonBaseClass": "BaseModel",
+    "baseClassColumns": ["id", "created_on", "created_by"],
+    "excludePrefixInClassNames": true,
+    "defaultRefCol": "id",
+    "excludeTables": ["schema_version"],
+    "includeTables": ["do_*"],
+    "schema": "devopsplus",
+    "customDataTypes": [
+        {"type":"Date" ,"dataType": "org.joda.time.DateTime"},
+        {"type":"Time" ,"dataType": "org.joda.time.LocalTime"},
+        {"type":"Int" , "length":1, "dataType": "Boolean"}
+    ],
+    "mappedSuperClasses": ["do_user"],
+    "defaultStrategies": {
+        "ac_*": "@javax.persistence.GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)"
+    },
+    "relationships": {
+        "do_user": {
+            "defaultFk": "user_id",
+            "related": [
+                {
+                    "table": "do_role",
+                    "name": "roles",
+                    "type": "ManyToMany",
+                    "fetchType": "Eager",
+                    "joinTable": {
+                        "table": "do_userrole",
+                        "inverseJoinColumns": [{"fk": "role_id"}]
+                    }
+                },
+                {
+                    "table": "do_group",
+                    "name": "groups",
+                    "type": "ManyToMany",
+                    "fetchType": "Eager",
+                    "joinTable": {
+                        "table": "do_usergroup",
+                        "inverseJoinColumns": [{"fk": "group_id"}]
+                    }
+                },
+                { "table": "do_profile", "name": "profiles", "fetchType": "Eager" }
+            ]
+        },
+        "do_role": {
+            "defaultFk": "role_id",
+            "related": [
+                { "table": "do_rolepermission", "name": "rolePermissions", "fetchType": "Eager" }
+            ]
+        },
+        "do_rolepermission": {
+            "related": [
+                {
+                    "type": "ManyToOne" ,
+                    "table": "do_permission",
+                    "name": "rolePermissions",
+                    "fetchType": "Eager",
+                    "joinColumns": [{"fk":"permission_id"}]
+                }
+            ]
+        },
+        "do_company": {
+            "defaultFk": "company_id",
+            "related": [
+                { "table": "do_user", "name": "users", "batchSize": 25 }
+            ]
+        }
+    }
+}

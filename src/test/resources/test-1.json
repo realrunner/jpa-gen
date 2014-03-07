@@ -1,0 +1,100 @@
+{
+    "packageName": "com.aziosoft.auctoweb.model",
+    "tablePrefix": "ac",
+    "commonBaseClass": "com.aziosoft.auctoweb.model.BaseModel",
+    "baseClassColumns": ["id", "created_on"],
+    "excludePrefixInClassNames": true,
+    "defaultRefCol": "id",
+    "excludeTables": ["schema_*", "ac_venue"],
+    "includeTables": ["*ac_*"],
+    "schema": "public",
+    "mappedSuperClassSuffix" : "Base",
+    "customDataTypes": [
+        {"type":"Date" ,"dataType": "org.joda.time.DateTime"},
+        {"type":"Time" ,"dataType": "org.joda.time.LocalTime"}
+    ],
+    "fieldTypes": [
+        {"table": "ac_product", "column": "quiet_period", "type": "org.joda.time.Duration"},
+        {"table": "ac_recurring_pattern", "column": "duration", "type": "org.joda.time.Duration"},
+        {"table": "ac_product_history", "column": "quiet_period", "type": "org.joda.time.Duration"}
+    ],
+    "enumFields": [
+        {"table": "ac_template_section", "column": "component_type_code", "type": "com.aziosoft.auctoweb.model.SectionType"}
+    ],
+    "mappedSuperClasses": ["ac_user", "ac_product_instance"],
+    "classListeners": {
+        "ac_media": ["com.aziosoft.auctoweb.model.MediaDeleteListener"]
+    },
+    "tableBaseClasses": {
+        "ac_product_history": "", "ac_price_point_history": ""
+    },
+    "customAnnotations": {
+        "ac_organization": ["@SecureModel(SecurityLevel.ORGANIZATION)"],
+        "ac_order": ["@SecureModel(SecurityLevel.ORGANIZATION)"],
+        "ac_product": ["@SecureModel(SecurityLevel.ORGANIZATION)"],
+        "ac_product_type": ["@SecureModel(SecurityLevel.ORGANIZATION)"],
+        "ac_promo": ["@SecureModel(SecurityLevel.ORGANIZATION)"],
+        "ac_venue": ["@SecureModel(SecurityLevel.ORGANIZATION)"],
+        "ac_user": ["@SecureModel(SecurityLevel.ORGANIZATION)"]
+    },
+    "relationships": {
+        "ac_order": {
+            "defaultFk": "order_id",
+            "defaultRefCol": "id",
+            "defaultCollectionType": "List",
+            "related": [
+                {
+                    "table": "ac_order_product",
+                    "name": "products",
+                    "type": "OneToMany",
+                    "includeInverse": true,
+                    "fetchType": "Eager",
+                    "fetchMode": "Select",
+                    "batchSize": 100,
+                    "cascade": "ALL",
+                    "collectionType": "List",
+                    "orphanRemoval": "true",
+                    "orderBy": "quantity",
+                    "joinColumns": [{"fk":"order_id", "refCol":"id", "nullable":false, "updatable":false, "insertable":false}]
+                },
+                {"table": "ac_order_transaction", "name":"transactions"},
+                {"table": "ac_order_promo", "name":"promos"},
+                {"table": "ac_order_status", "name":"status"},
+                {"table": "ac_order_handling", "name":"handling"}
+            ]
+        },
+        "ac_order_handling": {
+            "defaultFk": "order_handling_id",
+            "related": [
+                {"table": "ac_order_handling_products", "name":"products"},
+                {"table": "ac_order_status", "name":"status"}
+            ]
+        },
+        "ac_product": {
+            "defaultFk": "product_id",
+            "related": [
+                {
+                    "table": "ac_product",
+                    "name": "relatedProducts",
+                    "type": "ManyToMany",
+                    "orderBy": "sequence",
+                    "joinTable": {
+                        "table": "ac_product_relation",
+                        "joinColumns": [{"fk": "product_id1", "refCol":"id"}],
+                        "inverseJoinColumns": [{"fk": "product_id2"}]
+                    }
+                },
+                {"table": "ac_order_transaction", "name":"transactions"},
+                {"table": "ac_media", "name":"media", "orderBy": "sequence"},
+                {"table": "ac_product_instance", "name":"media"},
+                {"table": "ac_template", "name":"media"},
+                {"table": "ac_price_point", "name":"media"},
+                {"table": "ac_recurring_pattern", "name":"media"},
+                {"table": "ac_attribute", "name":"media", "orderBy": "sequence"}
+            ]
+        }
+    },
+    "defaultStrategies": {
+        "ac_*": "@GeneratedValue(generator = \"aucto-uuid\") \n@org.hibernate.annotations.GenericGenerator(name = \"aucto-uuid\", strategy = \"com.aziosoft.auctoweb.util.GenerateUUIDIfNull\")  \n@org.hibernate.annotations.Type(`type`=\"pg-uuid\")"
+    }
+}
