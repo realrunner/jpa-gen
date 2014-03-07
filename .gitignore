@@ -7,4 +7,5 @@
 *.iml
 *.log
 target
+.idea
 dependency-reduced-pom.xml
