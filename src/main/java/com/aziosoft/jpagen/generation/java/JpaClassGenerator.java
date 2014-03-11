@@ -210,7 +210,7 @@ public class JpaClassGenerator extends Generator {
         if(rel.getFetchMode() != null) {
             sb.append("\t@org.hibernate.annotations.Fetch(org.hibernate.annotations.FetchMode.")
                     .append(rel.getFetchMode().toString().toUpperCase())
-                    .append("\n");
+                    .append(")\n");
         }
 
         //BatchSize
