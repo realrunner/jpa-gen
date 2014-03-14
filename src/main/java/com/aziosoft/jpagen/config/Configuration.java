@@ -30,6 +30,7 @@ public class Configuration {
     Map<String, List<String>> customAnnotations;
     Map<String, String> defaultStrategies;
     Map<String, Relations> relationships;
+    Map<String, String> classNames;
     String mappedSuperClassSuffix;
 
 
@@ -37,6 +38,14 @@ public class Configuration {
         return SerializationUtils.read(stream, Configuration.class);
     }
 
+
+    public Map<String, String> getClassNames() {
+        return classNames;
+    }
+
+    public void setClassNames(Map<String, String> classNames) {
+        this.classNames = classNames;
+    }
 
     public String getSchema() {
         return schema;

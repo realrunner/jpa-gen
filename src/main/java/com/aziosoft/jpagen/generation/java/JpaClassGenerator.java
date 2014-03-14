@@ -59,6 +59,9 @@ public class JpaClassGenerator extends Generator {
 
 
     protected String className(String tableName, Boolean includeBaseSuffixForMappedSuperclasses) {
+        if(config.getClassNames() != null && config.getClassNames().containsKey(tableName)) {
+            return config.getClassNames().get(tableName);
+        }
         String name = tableName;
         if(config.getExcludePrefixInClassNames() && StringUtils.isNotBlank(config.getTablePrefix()) && name.startsWith(config.getTablePrefix())) {
             name = name.substring(config.getTablePrefix().length());

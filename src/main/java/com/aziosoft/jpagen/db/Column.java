@@ -7,8 +7,8 @@ public class Column {
     String tableName;
     String name;
     String typeName;
-    Integer length;
-    Integer precision;
+    Long length;
+    Long precision;
     String defaultValue;
     Boolean nullable;
     Boolean isPk;
@@ -38,19 +38,19 @@ public class Column {
         this.typeName = typeName;
     }
 
-    public Integer getLength() {
+    public Long getLength() {
         return length;
     }
 
-    public void setLength(Integer length) {
+    public void setLength(Long length) {
         this.length = length;
     }
 
-    public Integer getPrecision() {
+    public Long getPrecision() {
         return precision;
     }
 
-    public void setPrecision(Integer precision) {
+    public void setPrecision(Long precision) {
         this.precision = precision;
     }
 

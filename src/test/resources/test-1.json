@@ -37,6 +37,9 @@
         "ac_venue": ["@SecureModel(SecurityLevel.ORGANIZATION)"],
         "ac_user": ["@SecureModel(SecurityLevel.ORGANIZATION)"]
     },
+    "classNames": {
+        "ac_product":"TheProduct"
+    },
     "relationships": {
         "ac_order": {
             "defaultFk": "order_id",

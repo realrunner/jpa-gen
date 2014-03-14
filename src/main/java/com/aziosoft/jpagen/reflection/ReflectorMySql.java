@@ -154,8 +154,8 @@ public class ReflectorMySql extends Reflector {
             column.setDefaultValue(resultSet.getString(3));
             column.setNullable("YES".equalsIgnoreCase(resultSet.getString(4)));
             column.setTypeName(resultSet.getString(5));
-            column.setLength(resultSet.getInt(6));
-            column.setPrecision(resultSet.getInt(7));
+            column.setLength(resultSet.getLong(6));
+            column.setPrecision(resultSet.getLong(7));
             column.setIsPk("PRI".equalsIgnoreCase(resultSet.getString(10)));
 
             column.setType(getType(column, resultSet.getString(9)));
@@ -172,10 +172,10 @@ public class ReflectorMySql extends Reflector {
                     column.setTypeName(m.group(1));
                 }
                 if(StringUtils.isNotBlank(m.group(2))) {
-                    column.setLength(Integer.parseInt(m.group(2)));
+                    column.setLength(Long.parseLong(m.group(2)));
                 }
                 if(StringUtils.isNotBlank(m.group(3))) {
-                    column.setPrecision(Integer.parseInt(m.group(3)));
+                    column.setPrecision(Long.parseLong(m.group(3)));
                 }
             }
 

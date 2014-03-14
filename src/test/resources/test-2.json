@@ -17,6 +17,9 @@
     "defaultStrategies": {
         "ac_*": "@javax.persistence.GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)"
     },
+    "classNames" : {
+        "do_profile" : "MyProfile"
+    },
     "relationships": {
         "do_user": {
             "defaultFk": "user_id",
