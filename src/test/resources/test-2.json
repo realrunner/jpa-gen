@@ -20,6 +20,9 @@
     "classNames" : {
         "do_profile" : "MyProfile"
     },
+    "cachedClasses": [
+        "do_company"
+    ],
     "relationships": {
         "do_user": {
             "defaultFk": "user_id",

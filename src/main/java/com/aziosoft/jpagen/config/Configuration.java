@@ -4,8 +4,10 @@ import com.aziosoft.jpagen.util.SerializationUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by mnelson on 3/5/14.
@@ -31,6 +33,7 @@ public class Configuration {
     Map<String, String> defaultStrategies;
     Map<String, Relations> relationships;
     Map<String, String> classNames;
+    Set<String> cachedClasses;
     String mappedSuperClassSuffix;
 
 
@@ -197,5 +200,16 @@ public class Configuration {
 
     public void setMappedSuperClassSuffix(String mappedSuperClassSuffix) {
         this.mappedSuperClassSuffix = mappedSuperClassSuffix;
+    }
+
+    public Set<String> getCachedClasses() {
+        if(cachedClasses == null) {
+            cachedClasses = new HashSet<>();
+        }
+        return cachedClasses;
+    }
+
+    public void setCachedClasses(Set<String> cachedClasses) {
+        this.cachedClasses = cachedClasses;
     }
 }

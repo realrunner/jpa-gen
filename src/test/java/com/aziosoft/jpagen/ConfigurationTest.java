@@ -24,5 +24,6 @@ public class ConfigurationTest {
         Assert.assertEquals(7, config.getCustomAnnotations().size());
         Assert.assertEquals(3, config.getRelationships().size());
         Assert.assertEquals(1, config.getClassNames().size());
+        Assert.assertEquals(1, config.getCachedClasses().size());
     }
 }

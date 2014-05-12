@@ -28,6 +28,9 @@
     "tableBaseClasses": {
         "ac_product_history": "", "ac_price_point_history": ""
     },
+    "cachedClasses": [
+        "ac_product"
+    ],
     "customAnnotations": {
         "ac_organization": ["@SecureModel(SecurityLevel.ORGANIZATION)"],
         "ac_order": ["@SecureModel(SecurityLevel.ORGANIZATION)"],

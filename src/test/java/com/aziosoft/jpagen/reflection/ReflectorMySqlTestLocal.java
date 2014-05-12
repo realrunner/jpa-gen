@@ -41,7 +41,7 @@ public class ReflectorMySqlTestLocal {
     @Test
     public void testGetTables() {
         List<Table> tables = reflector.getTableList();
-        Assert.assertEquals(10, tables.size());
+        Assert.assertTrue(tables.size() > 10);
         for(Table table: tables) {
             Assert.assertNotNull(table.getName());
             Assert.assertNotNull(table.getSchema());
@@ -52,10 +52,10 @@ public class ReflectorMySqlTestLocal {
     public void testGetColumns() {
         List<Table> tables = new LinkedList<>();
         Table t = new Table();
-        t.setName("do_user");
+        t.setName("do_group");
         tables.add(t);
         List<Column> columns = reflector.getColumnsForTables(tables);
-        Assert.assertEquals(15, columns.size());
+        Assert.assertEquals(6, columns.size());
         Column c = columns.get(0);
         Assert.assertEquals("id", c.getName());
         Assert.assertEquals(false, (boolean)c.getNullable());

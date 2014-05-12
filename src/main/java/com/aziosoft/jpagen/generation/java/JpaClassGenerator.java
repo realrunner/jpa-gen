@@ -108,6 +108,9 @@ public class JpaClassGenerator extends Generator {
             writer.write("@javax.persistence.Entity\n");
             writer.write(String.format("@javax.persistence.Table(name = \"%s\")\n", table.getName()));
         }
+        if(config.getCachedClasses().contains(table.getName())) {
+            writer.write("@javax.persistence.Cacheable\n");
+        }
 
 
         String baseClass = "";
@@ -247,6 +250,11 @@ public class JpaClassGenerator extends Generator {
             sb.append("\t\tjoinColumns = {").append(StringUtils.join(F.map(jcs, new MakeJoinColumn()),  ", ")).append("},\n");
             sb.append("\t\tinverseJoinColumns = {").append(StringUtils.join(F.map(ijcs, new MakeJoinColumn()),  ", ")).append("}");
             sb.append(")\n");
+        }
+
+        //Caching
+        if(config.getCachedClasses().contains(table.getName())) {
+            sb.append("\t@org.hibernate.annotations.Cache(usage=org.hibernate.annotations.CacheConcurrencyStrategy.READ_WRITE)\n");
         }
 
         //Field
